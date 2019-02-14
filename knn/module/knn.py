@@ -6,8 +6,6 @@ Created on Feb 13, 2019
 
 class knn:
     
-    
-    
     def __init__(self):
         print("init")
     
