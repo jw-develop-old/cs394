@@ -6,12 +6,11 @@ Created on Feb 13, 2019
 
 class knn:
     def __init__(self,data, targets, k, metric, inputs):
-        print("This is the dream")
+        print("knn.init")
 
 class euclidean:
-    def euclidean(self):
+    def __init__(self):
         print("euclidean")
 
-class manhattan:
     def manhattan(self):
         print("manhattan")
