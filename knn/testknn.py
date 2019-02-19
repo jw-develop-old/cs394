@@ -17,14 +17,14 @@ if __name__ == '__main__':
     data, inputs, targets, y_test = train_test_split(
     iris_dataset['data'], iris_dataset['target'], random_state=0)
 
-    k = 3
+    k = 6
     model = knn.euclidean
 
 #    print("\ndata shape:", data.shape)
 #    print("targets shape:", targets.shape)
 #    print("inputs shape:", inputs.shape)
 
-    y_pred = knn.knn(data, targets,k,model, inputs)
+    y_pred = knn.knn(data, targets,k,model, inputs,y_test)
     y_cheat = knn.illegal(data, targets,k,model, inputs)
 
     print("\nTest knn score: {:.2f}".format(1 - numpy.mean(y_pred != y_test)))
