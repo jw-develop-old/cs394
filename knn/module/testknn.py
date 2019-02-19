@@ -11,5 +11,4 @@ if __name__ == '__main__':
     y_train = [4,6,5]
     X_test = [2,3,4]
     k = knn()
-    print(k)
     k.knn(X_train, y_train, knn.euclidean,5, X_test)

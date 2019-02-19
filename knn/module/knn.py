@@ -7,7 +7,7 @@ Created on Feb 13, 2019
 class knn:
     
     def __init__(self):
-        print("init")
+        pass
     
     def knn(self,data, targets, k, metric, inputs):
         print("This is the dream")
