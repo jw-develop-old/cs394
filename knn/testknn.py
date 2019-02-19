@@ -37,7 +37,7 @@ if __name__ == '__main__':
 	dataset = load_iris()
 
 	fnames = ['test_size','percent']
-	w = csv.DictWriter(open('knn_test_results', 'w', newline=''), delimiter=',',
+	w = csv.DictWriter(open('knn_test_results.csv', 'w', newline=''), delimiter=',',
 							quotechar='|', quoting=csv.QUOTE_NONE,fieldnames=fnames)
 	w.writeheader()
 	for ts in np.arange(.05,.95,.05):
