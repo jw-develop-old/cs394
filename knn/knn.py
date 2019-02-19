@@ -4,10 +4,10 @@ Created on Feb 13, 2019
 @author: sirjwhite
 '''
 
-import numpy as np
+import numpy
 import collections
 
-def knn(data, targets, k, metric, inputs,not_legit):
+def knn(data, targets, k, metric, inputs):
 
 
 	predictions = []
@@ -26,52 +26,33 @@ def knn(data, targets, k, metric, inputs,not_legit):
 		distances.sort()
 
 		#Collect first k of these sorted points
-		print(data[c])
-		print(distances[0])
-		print(data[distances[1][1]])
-		print(targets[distances[1][1]])
-		print(distances[1])
-		print(data[distances[0][1]])
-		print(targets[distances[0][1]])
-		print()
-		nearest = distances[0][1]
 		nearest = []
 		for i in range(k):
 			nearest.append(targets[distances[i][1]])
-			print(targets[distances[i][1]])
-		print()
 
 		#Compute the bag of the classes
 		bag = collections.Counter(nearest)
 
-		#Return max count tag
+		#Return max count tag. Stacked brackets are to remove layers of format from counter.
 		toAdd = bag.most_common(1)[0][0]
-		print(toAdd)
-		print(not_legit[c])
-		print()
 
 		predictions.append(toAdd)
 
-	assert len(predictions) == inputs.shape[0]
-	toReturn = np.array(predictions)
-
-	print(len(predictions))
-	print(toReturn)
-	print(type(toReturn))
+	toReturn = numpy.array(predictions)
 
 	return toReturn
 
-def euclidean(x,y):
+def minkowski(x,y,p):
 	total = 0
 	for i in range(x.shape[0]):
-		total += (x[i] - y[i]) ** 2
-	return total ** .5
+		total += (x[i] - y[i]) ** p
+	return total ** (1/p)
+
+def euclidean(x,y):
+	return minkowski(x,y,2)
 
 def manhattan(x,y):
-	total = 0
-	for i in range(x.shape[0]):
-		total += abs(x[i] - y[i])
-	return total
+	return minkowski(x,y,1)
 
 def illegal(data, targets, k, metric, inputs):
 	from sklearn.neighbors import KNeighborsClassifier
@@ -80,7 +61,4 @@ def illegal(data, targets, k, metric, inputs):
 	classifier.fit(data,targets)
 	predictions = classifier.predict(inputs)
 
-	print(len(predictions))
-	print(predictions)
-	print(type(predictions))
 	return predictions
