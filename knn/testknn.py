@@ -27,7 +27,7 @@ def runTest(ts):
 	y_cheat = knn.illegal(data, targets,k,model, inputs)
 
 	percent = 1 - np.mean(y_pred != y_test)
-	print("\nTest knn percent: {:.2f}".format(percent))
+	print("\n","{:.2f}".format(ts))
 
 	return percent
 
@@ -35,10 +35,11 @@ if __name__ == '__main__':
 
 	datasets = [load_iris(),load_wine(),load_digits()]
 	dataset = load_iris()
+	val = .05
 
 	fnames = ['test_size','percent']
-	w = csv.DictWriter(open('knn_test_results.csv', 'w', newline=''), delimiter=',',
+	w = csv.DictWriter(open('test_results.csv', 'w', newline=''), delimiter=',',
 							quotechar='|', quoting=csv.QUOTE_NONE,fieldnames=fnames)
 	w.writeheader()
-	for ts in np.arange(.05,.95,.05):
-		w.writerow({'test_size' : ts,'percent' : runTest(ts)})
+	for ts in np.arange(val,1,val):
+		w.writerow({'test_size' : "{:.2f}".format(ts),'percent' : "{:.2f}".format(runTest(ts))})
