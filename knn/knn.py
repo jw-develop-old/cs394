@@ -9,50 +9,48 @@ import collections
 
 def knn(data, targets, k, metric, inputs):
 
-	print(targets)
-
-	print(inputs.shape[0])
-	predictions = [range(inputs.shape[0])]
+	predictions = []
 
 	for c in range(inputs.shape[0]):
 
-		#Compute all distances, Sort N points by 
+		#Compute all distances, Sort N points by distance.
 		distances = []
 		for i in range(data.shape[0]):
-			if c != i:
-				distance = metric(data[c],data[i])
-				toAdd = (distance,i)
-				if (distance != 0):
-					distances.append(toAdd)
+			distance = metric(data[c],data[i])
+			toAdd = (distance,i)
+			if (distance != 0):
+				distances.append(toAdd)
 
 		#Sort N points by distance from X
 		distances.sort()
 
 		#Collect first k of these sorted points
 		print(distances[0])
+		print(distances[1])
+		print()
 		nearest = distances[0][1]
-	#	nearest = [range(k)]
-	#	for i in range(k):
-	#		nearest[i] = distances[i]
-	#		print(i)
-	#		print(distances[i])
+		nearest = []
+		for i in range(k):
+			nearest.append(targets[distances[i][1]])
+			print(targets[distances[i][1]])
+			print()
 
 		#Compute the bag of the classes
-	#	bag = collections.Counter(nearest)
-	#	print(nearest)
-	#	for x in nearest:
-	#		if x is not ():
-	#			bag[targets[x[1]]] += 1
+		bag = collections.Counter(nearest)
 
 		#Return max count tag
-	#	toAdd = bag.most_common(1)[0][0]
-	#	print("\n",toAdd)
+		toAdd = bag.most_common(1)[0][0]
 
-		predictions[c] = targets[nearest]
+		predictions.append(targets[toAdd])
 
-	print(predictions)
-	print(type(predictions))
-	return np.array(predictions)
+	assert len(predictions) == inputs.shape[0]
+	toReturn = np.array(predictions)
+
+	print(len(predictions))
+	print(toReturn)
+	print(type(toReturn))
+
+	return toReturn
 
 def euclidean(x,y):
 	total = 0
@@ -63,7 +61,7 @@ def euclidean(x,y):
 def manhattan(x,y):
 	total = 0
 	for i in range(x.shape[0]):
-		total += (x[i] - y[i])
+		total += abs(x[i] - y[i])
 	return total
 
 def illegal(data, targets, k, metric, inputs):
@@ -73,6 +71,7 @@ def illegal(data, targets, k, metric, inputs):
 	classifier.fit(data,targets)
 	predictions = classifier.predict(inputs)
 
+	print(len(predictions))
 	print(predictions)
 	print(type(predictions))
 	return predictions
