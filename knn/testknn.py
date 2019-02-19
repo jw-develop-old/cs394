@@ -5,24 +5,28 @@ Created on Feb 13, 2019
 '''
 
 import knn
-from sklearn.datasets import load_iris
-import numpy as np
+import numpy
 
-iris_dataset = load_iris()
-def irisModel():
-	print("fear not")
-	print("Keys of iris_dataset:\n", iris_dataset.keys())
-	from sklearn.model_selection import train_test_split
-	X_train, X_test, y_train, y_test = train_test_split(
-    iris_dataset['data'], iris_dataset['target'], random_state=0)
-	print("hey")
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
 
 if __name__ == '__main__':
-    
-    X_train = [1,3,4]
-    y_train = [4,6,5]
-    X_test = [2,3,4]
-    
-    knn.knn(X_train, y_train,knn.euclidean,5, X_test)
 
-    irisModel()
+    iris_dataset = load_iris()
+
+    data, inputs, targets, y_test = train_test_split(
+    iris_dataset['data'], iris_dataset['target'], random_state=0)
+
+    k = 1
+
+    print("\ndata shape:", data.shape)
+    print("targets shape:", targets.shape)
+    print("inputs shape:", inputs.shape)
+
+    y_pred = knn.knn(data, targets,k,knn.euclidean, inputs)
+    y_cheat = knn.illegal(data, targets,k,knn.euclidean, inputs)
+
+    print("\nTest knn score: {:.2f}".format(1 - numpy.mean(y_pred != y_test)))
+    print("Illegal knn score: {:.2f}\n".format(1 - numpy.mean(y_cheat != y_test)))
+
+    # Should be .76 with 1 neighbor.
