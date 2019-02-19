@@ -44,4 +44,4 @@ if __name__ == '__main__':
 							quotechar='|', quoting=csv.QUOTE_NONE,fieldnames=fnames)
 	w.writeheader()
 	for ts in np.arange(val,1-val,val):
-		w.writerow({'test_size' : "{:.2f}".format(ts),'percent' : "{:.2f}".format(runTest(ts))})
+		w.writerow({'test_size' : "{:.2f}".format(ts),'percent' : "{:.5f}".format(runTest(ts))})
