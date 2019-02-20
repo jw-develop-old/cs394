@@ -53,12 +53,3 @@ def euclidean(x,y):
 
 def manhattan(x,y):
 	return minkowski(x,y,1)
-
-def illegal(data, targets, k, metric, inputs):
-	from sklearn.neighbors import KNeighborsClassifier
-	classifier = KNeighborsClassifier(n_neighbors=k)
-
-	classifier.fit(data,targets)
-	predictions = classifier.predict(inputs)
-
-	return predictions
