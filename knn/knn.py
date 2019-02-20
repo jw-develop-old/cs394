@@ -7,16 +7,17 @@ Created on Feb 13, 2019
 import numpy
 import collections
 
+# Primary knn function signature.
 def knn(data, targets, k, metric, inputs):
-
 
 	predictions = []
 
-	for c in range(inputs.shape[0]):
+	for c in range(len(inputs)):
 
 		#Compute all distances, Sort N points by distance.
 		distances = []
-		for i in range(data.shape[0]):
+
+		for i in range(len(data)):
 			distance = metric(inputs[c],data[i])
 			toAdd = (distance,i)
 			if (distance != 0):
@@ -42,9 +43,10 @@ def knn(data, targets, k, metric, inputs):
 
 	return toReturn
 
+# Minkowski distance, used as a template for euclidean and manhattan distance.
 def minkowski(x,y,p):
 	total = 0
-	for i in range(x.shape[0]):
+	for i in range(len(x)):
 		total += (x[i] - y[i]) ** p
 	return total ** (1/p)
 
