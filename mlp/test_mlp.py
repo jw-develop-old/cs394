@@ -1,11 +1,10 @@
 '''
-Created on Feb 13, 2019
+Created on Mar 18, 2019
 
-@author: sirjwhite
+@author: James White
 '''
 
 import t_helper
-import imgs
 
 from sklearn.datasets import load_wine
 
@@ -30,6 +29,6 @@ if __name__ == '__main__':
 #	print(len(set2[0]))
 	
 	print("--Test 1--")
-	t_helper.multiTest(set1,out1)
+	t_helper.runTest(set1,out1)
 #	print("--Test 2--")
 #	t_helper.multiTest(set2,out2)
