@@ -13,8 +13,8 @@ import random as r
 from sklearn.model_selection import train_test_split
 
 def runTest(dataset,file):
-	for r in range(0,10):
-		test(.2,r,dataset)
+#	for r in range(0,10):
+	test(.2,0,dataset)
 
 # Module to divide data and house tests called by testknn.py, delegated to knn.py.
 # runTest is for the test itself, returning the percent success rate as calculated by knn.py.

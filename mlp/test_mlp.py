@@ -7,6 +7,7 @@ Created on Mar 18, 2019
 import t_helper
 
 from sklearn.datasets import load_wine
+from sklearn.datasets import load_iris
 
 # Main method. Imports data and sets up for the tests.
 if __name__ == '__main__':
@@ -22,13 +23,14 @@ if __name__ == '__main__':
 	
 #	print("--Importing/parsing scene data--")
 
-#	set2 = imgs.load_scenes()
-#	out2 = 'scene_results.csv'
+	load_iris = load_iris()
+	set2 = (load_iris['data'].tolist(),load_iris['target'].tolist())
+	out2 = 'iris_results.csv'
 
 #	print(type(set2[0]))
 #	print(len(set2[0]))
 	
 	print("--Test 1--")
 	t_helper.runTest(set1,out1)
-#	print("--Test 2--")
-#	t_helper.multiTest(set2,out2)
+	print("--Test 2--")
+	t_helper.runTest(set2,out2)
