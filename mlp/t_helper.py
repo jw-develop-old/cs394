@@ -22,19 +22,23 @@ def test(ts,r,dataset):
 	X_train, X_test, y_train, y_test = train_test_split(
 	dataset[0], dataset[1], test_size=ts,random_state=r)
 
-	# Parameters that could be varied in other tests.
-	p_count = 30
+	# Perceptron count
+	p_count = 1
 
 	# Training the classifier.
-	classifier = mlp.illegal_train(p_count, X_train, y_train,r)
-#	classifier = mlp.train(p_count, X_train, y_train)
+	illegal = mlp.illegal_train(p_count, X_train, y_train,r)
 
 	# The predicting done by the actual model.
-	y_pred = mlp.illegal_classify(classifier, X_test)
-#	y_pred = mlp.classify(classifier, X_test)
+	y_pred = mlp.illegal_classify(illegal, X_test)
 
 	percent = 1 - np.mean(y_pred != y_test)
-	print("{:.2f}".format(percent))
+	print("\n{:.2f}".format(percent))
+
+	classifier = mlp.train(p_count, X_train, y_train)
+	y_pred = mlp.classify(classifier, X_test)
+
+	percent = 1 - np.mean(y_pred != y_test)
+	print("\n{:.2f}\n".format(percent))
 
 	return percent
 
