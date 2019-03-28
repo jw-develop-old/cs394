@@ -27,22 +27,28 @@ def initialize_perceptron(n) :
 def sigmoid(x) :
     return 1 / (1 + np.exp(-x))
 
+def perc_train_step(p, x, t, eta=.1) :
+    xx = [1] + [x]
+    assert len(xx) == len(p.weights)
+    z = p(x)
+    p.weights =  [p.weights[j] + eta*(t-z)*xx[j] for j in range(len(xx))]
+
 class Classifier:
     def __init__(self,M,data,targets):
         self.M = M
         self.data = data
         self.targets = targets
-    def build(self) :
+
+    def build(self):
     	p = initialize_perceptron(3)
     	for i in range(10):
 		    print("iteration " + str(i))
 		    print(str(p))
-		    print(",".join([str(p(d[0])) for d in data]))
-		    for d in data:
+#		    print(",".join([str(p(d[0])) for d in self.data]))
+		    for d in self.data:
 		        perc_train_step(p, d[0], d[1])
 
-
-    def output(self,inputs) :
+    def output(self,inputs):
     	return None
 
 # Primary mlp function signatures.
