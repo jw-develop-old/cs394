@@ -25,15 +25,12 @@ def test(ts,r,dataset):
 	# Perceptron count
 	p_count = 1
 
-	# Training the classifier.
 	illegal = mlp.illegal_train(p_count, X_train, y_train,r)
-
-	# The predicting done by the actual model.
 	y_pred = mlp.illegal_classify(illegal, X_test)
-
 	percent = 1 - np.mean(y_pred != y_test)
 	print("\n{:.2f}".format(percent))
 
+	# Training the classifier.
 	classifier = mlp.train(p_count, X_train, y_train)
 	y_pred = mlp.classify(classifier, X_test)
 

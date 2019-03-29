@@ -22,13 +22,13 @@ class Perceptron :
         return ",".join([str(w) for w in self.weights])
 
 def initialize_perceptron(n) :
-    return Perceptron([uniform(-1,1) for n in range(n)], np.sign)
+    return Perceptron([uniform(-1,1) for n in range(n)], sigmoid)
 
 def sigmoid(x) :
     return 1 / (1 + np.exp(-x))
 
 def perc_train_step(p, x, t, eta=.1) :
-    xx = [1] + [x]
+    xx = [1] + x
     assert len(xx) == len(p.weights)
     z = p(x)
     p.weights =  [p.weights[j] + eta*(t-z)*xx[j] for j in range(len(xx))]
@@ -44,7 +44,7 @@ class Classifier:
     	for i in range(10):
 		    print("iteration " + str(i))
 		    print(str(p))
-#		    print(",".join([str(p(d[0])) for d in self.data]))
+		    print(",".join([str(p(d[0])) for d in self.data]))
 		    for d in self.data:
 		        perc_train_step(p, d[0], d[1])
 

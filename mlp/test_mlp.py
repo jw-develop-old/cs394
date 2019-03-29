@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
 	print("--Importing wine data--")
 
-	wine_data = load_wine()
+	wine_data = load_iris()
 	set1 = (wine_data['data'].tolist(),wine_data['target'].tolist())
 	out1 = 'wine_results.csv'
 
@@ -23,7 +23,7 @@ if __name__ == '__main__':
 	
 #	print("--Importing/parsing scene data--")
 
-	load_iris = load_iris()
+	load_iris = load_wine()
 	set2 = (load_iris['data'].tolist(),load_iris['target'].tolist())
 	out2 = 'iris_results.csv'
 
