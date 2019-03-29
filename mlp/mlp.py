@@ -8,10 +8,38 @@ import numpy as np
 import collections
 from sklearn.neural_network import MLPClassifier
 from random import uniform
+<<<<<<< HEAD
 import perceptron as pc
+=======
+import perceptron
+
+class Perceptron :
+    def __init__(self, weights, activation):
+        self.weights = weights
+        self.activation = activation
+    def dimension(self) :
+        return len(self.weights)-1
+    def __call__(self, inputs) :
+        return self.activation(np.dot(self.weights, [1]+inputs))
+    def __str__(self) :
+        return ",".join([str(w) for w in self.weights])
+
+def initialize_perceptron(n) :
+    return Perceptron([uniform(-1,1) for n in range(n)], sigmoid)
+
+def sigmoid(x) :
+    return 1 / (1 + np.exp(-x))
+
+def perc_train_step(p, x, t, eta=.1) :
+    xx = [1] + x
+    assert len(xx) == len(p.weights)
+    z = p(x)
+    p.weights =  [p.weights[j] + eta*(t-z)*xx[j] for j in range(len(xx))]
+>>>>>>> 66747c1c821914bbbb0ee40a0f0e0fc7c4a96cd1
 
 #Primary classification unit
 class Classifier:
+<<<<<<< HEAD
 
 	# Constructor
 	def __init__(self,M,data,targets):
@@ -109,6 +137,24 @@ class Classifier:
 
 		return toReturn
 
+=======
+    def __init__(self,M,data,targets):
+        self.M = M
+        self.data = data
+        self.targets = targets
+
+    def build(self):
+    	p = initialize_perceptron(3)
+    	for i in range(10):
+		    print("iteration " + str(i))
+		    print(str(p))
+		    print(",".join([str(p(d[0])) for d in self.data]))
+		    for d in self.data:
+		        perc_train_step(p, d[0], d[1])
+
+    def output(self,inputs):
+    	return None
+>>>>>>> 66747c1c821914bbbb0ee40a0f0e0fc7c4a96cd1
 
 # Primary mlp function signatures.
 def train(M,data,targets):
