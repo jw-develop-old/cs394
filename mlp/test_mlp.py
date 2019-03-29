@@ -25,7 +25,7 @@ def test(ts,r,data,target):
 	y_test = target
 
 	# Perceptron count
-	p_count = 2
+	p_count = 1
 
 	# # Training the classifier.
 	# illegal = mlp.illegal_train(p_count, X_train, y_train,r)
@@ -52,18 +52,12 @@ if __name__ == '__main__':
 
 # 	print("--Importing wine data--")
 
-	gate = [([1,1],1), ([1,-1],-1), ([-1,1],-1), ([-1,-1],-1)]
-
 	data = [[1,1],[1,-1],[-1,1],[-1,-1]]
 	target = [1,-1,-1,-1]
 
-<<<<<<< HEAD
 #	wine_data = load_wine()
 #	set1 = (wine_data['data'].tolist(),wine_data['target'].tolist())
-=======
-	wine_data = load_iris()
-	set1 = (wine_data['data'].tolist(),wine_data['target'].tolist())
->>>>>>> 66747c1c821914bbbb0ee40a0f0e0fc7c4a96cd1
+
 	out1 = 'wine_results.csv'
 
 ##	print(type(set1[0]))
@@ -71,15 +65,9 @@ if __name__ == '__main__':
 	
 ##	print("--Importing/parsing scene data--")
 
-<<<<<<< HEAD
 #	load_iris = load_iris()
 #	set2 = (load_iris['data'].tolist(),load_iris['target'].tolist())
 # 	out2 = 'iris_results.csv'
-=======
-	load_iris = load_wine()
-	set2 = (load_iris['data'].tolist(),load_iris['target'].tolist())
-	out2 = 'iris_results.csv'
->>>>>>> 66747c1c821914bbbb0ee40a0f0e0fc7c4a96cd1
 
 #	print(type(set2[0]))
 #	print(len(set2[0]))

@@ -8,38 +8,10 @@ import numpy as np
 import collections
 from sklearn.neural_network import MLPClassifier
 from random import uniform
-<<<<<<< HEAD
 import perceptron as pc
-=======
-import perceptron
-
-class Perceptron :
-    def __init__(self, weights, activation):
-        self.weights = weights
-        self.activation = activation
-    def dimension(self) :
-        return len(self.weights)-1
-    def __call__(self, inputs) :
-        return self.activation(np.dot(self.weights, [1]+inputs))
-    def __str__(self) :
-        return ",".join([str(w) for w in self.weights])
-
-def initialize_perceptron(n) :
-    return Perceptron([uniform(-1,1) for n in range(n)], sigmoid)
-
-def sigmoid(x) :
-    return 1 / (1 + np.exp(-x))
-
-def perc_train_step(p, x, t, eta=.1) :
-    xx = [1] + x
-    assert len(xx) == len(p.weights)
-    z = p(x)
-    p.weights =  [p.weights[j] + eta*(t-z)*xx[j] for j in range(len(xx))]
->>>>>>> 66747c1c821914bbbb0ee40a0f0e0fc7c4a96cd1
 
 #Primary classification unit
 class Classifier:
-<<<<<<< HEAD
 
 	# Constructor
 	def __init__(self,M,data,targets):
@@ -71,13 +43,19 @@ class Classifier:
 				print(str(p))
 #			print(",".join([str(self.pct[0](d[0])) for d in self.data]))
 			
-			# For each data point at index j
+			# For each data point and corresponding target.
 			for x, t in zip(self.data,self.targets):
+
+				# perc = self.pct[0]
+				# z = np.dot(x,perc(x))
+				# error = t - pc.sigmoid(-z)
+				# sigDer = pc.sigmoid(-z) * (1 - pc.sigmoid(-z))
+				# perc.weights += np.dot(x,error*sigDer)
 
 				# Compute all z
 				z_l = []
 				for p in self.pct:
-					z_l.append(pc.perc_train_step(p,x,t))
+					z_l.append(np.dot(p.weights, [1]+self.data))
 
 				# Compute all y
 				y_vals = self.pred(self.data)
@@ -88,27 +66,19 @@ class Classifier:
 					toAdd = y*(1-y)*(t-y)
 					d_y.append(toAdd)
 
+				# Calculate derivative of activation function.
 				d_z = []
-				# For each hidden unit
 				for z in z_l:
-					sum = 0
-					for d in d_y:
-						sum += y
-					print(type(z))
-					toAdd = z*(1-z)*sum
+					toAdd = pc.sigmoid(z)*(1-pc.sigmoid(z))
 					d_z.append(toAdd)
-
-				# For each output unit
-				w_ylk = []
-				for y in y_vals:
 					
-					# For each perceptron
-					for index in len(d_z):
+				# For each perceptron
+				for index in range(len(d_z)):
 
-						# For each weight
-						for w in self.pct[z]:
-							toAdd = .1*d_z[index]*z_l[index]
-							w_ylk.append(toAdd)
+					# For each weight
+					for w in self.pct[z]:
+						toAdd = .1*d_z[index]*z_l[index]
+						w_ylk.append(toAdd)
 
 				# Adjusting each weight of each perceptron.
 				for y in y_vals:
@@ -119,6 +89,8 @@ class Classifier:
 						# For each weight
 						for w in self.pct[z]:
 							w += .1 * d_z[index]
+
+			y_vals = self.pred(self.data)
 
 			print("Predictions: ",y_vals,"\n")
 
@@ -136,25 +108,6 @@ class Classifier:
 			toReturn = toReturn + [pc.step(sum)]
 
 		return toReturn
-
-=======
-    def __init__(self,M,data,targets):
-        self.M = M
-        self.data = data
-        self.targets = targets
-
-    def build(self):
-    	p = initialize_perceptron(3)
-    	for i in range(10):
-		    print("iteration " + str(i))
-		    print(str(p))
-		    print(",".join([str(p(d[0])) for d in self.data]))
-		    for d in self.data:
-		        perc_train_step(p, d[0], d[1])
-
-    def output(self,inputs):
-    	return None
->>>>>>> 66747c1c821914bbbb0ee40a0f0e0fc7c4a96cd1
 
 # Primary mlp function signatures.
 def train(M,data,targets):
