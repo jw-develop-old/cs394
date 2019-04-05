@@ -10,6 +10,9 @@ def step(x) :
 def sigmoid(x) :
     return 1 / (1 + np.exp(-x))
 
+def sigmoid_deriv(x) :
+    return x * (1-x)
+
 # We can adjust the sigmoid to make it range from -1 to 1
 def sigmoid_adjusted(x) :
     return 2 / (1 + np.exp(-x)) -1 
@@ -22,28 +25,12 @@ class Perceptron :
     def dimension(self) :
         return len(self.weights)-1
     def __call__(self, inputs) :
-        return self.activation(np.dot(self.weights, [1]+inputs))
+        return self.activation(np.dot(inputs,self.weights))
     def __str__(self) :
         return ",".join([str(w) for w in self.weights])
 
 def initialize_perceptron(n) :
-    return Perceptron([uniform(-1,1) for n in range(n)], sigmoid_adjusted)
-
-def perc_train_step(p, x, t, eta=.1) :
-    xx = [1] + x
-    assert len(xx) == len(p.weights)
-    z = p(x)
-    p.weights =  [p.weights[j] + eta*(t-z)*xx[j] for j in range(len(xx))]
-    return 
-
-def propogation(p, x, t, eta=.1) :
-
-    deltas = []
-    xx = [1] + x
-    assert len(xx) == len(p.weights)
-    z = p(x)
-    p.weights =  [p.weights[j] + eta*(t-z)*xx[j] for j in range(len(xx))]
-    return deltas
+    return Perceptron(2*np.random.random((n,1)) - 1, sigmoid)
 
 # line = np.linspace(-5, 5, 100)
 # import matplotlib.pyplot as plt

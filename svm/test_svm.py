@@ -1,5 +1,5 @@
 '''
-Created on Mar 18, 2019
+Created on Apr 5, 2019
 
 @author: James White
 '''
@@ -54,23 +54,32 @@ if __name__ == '__main__':
 	a_d = 'triples_results.txt'
 	a_i = 'triples_iterations.txt'
 
+	# Data and targets.
+	x = data
+	y = targets
+
+	# Data files.
+	print("Data:")
+	print(data.T)
+	print(targets.T)
+
 	print("--Test 1--")
 	runTest(t_d,t_t,a_d,a_i)
 
-	and_d = np.array([ [1,1],[0,0],[0,1],[1,0] ])
-	and_t = np.array([[1,0,0,0]]).T
+	# and_d = np.array([ [1,1],[0,0],[0,1],[1,0] ])
+	# and_t = np.array([[1,0,0,0]]).T
 
-	b_d = 'and_results.txt'
-	b_i = 'and_iterations.txt'
+	# b_d = 'and_results.txt'
+	# b_i = 'and_iterations.txt'
 
-	print("--Test 2--")
-	runTest(and_d,and_t,b_d,b_i)
+	# print("--Test 2--")
+	# runTest(and_d,and_t,b_d,b_i)
 
-	xor_d = np.array([ [0,0],[1,1],[0,1],[1,0] ])
-	xor_t = np.array([[0,0,1,1]]).T
+	# xor_d = np.array([ [0,0],[1,1],[0,1],[1,0] ])
+	# xor_t = np.array([[0,0,1,1]]).T
 
-	c_d = 'xor_results.txt'
-	c_i = 'xor_iterations.txt'
+	# c_d = 'xor_results.txt'
+	# c_i = 'xor_iterations.txt'
 
-	print("--Test 3--")
-	runTest(xor_d,xor_t,c_d,c_i)
+	# print("--Test 3--")
+	# runTest(xor_d,xor_t,c_d,c_i)
