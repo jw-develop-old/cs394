@@ -4,12 +4,13 @@ Created on Apr 5, 2019
 @author: James White
 '''
 
-import numpy
+import numpy as np
+from cvxopt import matrix,solvers
 
 class Classifier:
 
 	# Constructor
-	def __init__(self):
+	def __init__(self,a,b,t,k):
 
 		# List of support vectors.
 		self.a = a
@@ -33,32 +34,73 @@ class Classifier:
 
 		return toReturn
 
-def train(data,targets,k,C=None):
+def train(data,t,k,C=None):
 
 	# Method announcement.
 	print("\nTraining ...")
 
+	dim = len(data)
+	dims = (dim,dim)
+
 	# Compute kernel matrix K
+	k_matr = []
+	for i in range(dim):
+		k_matr.append([])
+		for j in range(dim):
+			k_matr[i].append(k(data[i],data[j]))
+	print(k_matr)
 
 	# Compute P = ttTK
+	P = t*t.T*k_matr
+	P = matrix(P,dims,'d')
 
 	# Assemble q vector of -1s
+	q = matrix(-1,(dim,1),'d')
 
 	# Assemble A matrix of ti along diagonal
+	A = np.zeros(dims)
+	for i in range(dim):
+		A[i][i] = t[i]
+	A = matrix(A,dims,'d')
 
 	# Assemble G matrix of -1s along diagonal.
+	G = np.zeros(dims)
+	for i in range(dim):
+		G[i][i] = -1
+	G = matrix(G,dims,'d')
 
 	# Assemble h vector of 0s.
+	h = matrix(0,(dim,1),'d')
+	
+	# Dummy zeroes for b.
+	b = h
+
+	# print("P:\n",P)
+	# print("q:\n",q)
+	# print("A:\n",A)
+	# print("G:\n",G)
+	# print("h:\n",h)
 
 	# Compute a vector by feeding P,q,G,h,A, and b=0 into QP solver.
+	# Format: sol = solvers.qp(P,q,G,h,A,b)
+	a = solvers.qp(P,q,G,h,A,b)
 
 	# Select support vectors from a that are not zero.
+	s_v = [x for x in a['x'] if x is not 0]
 
-	toReturn = Classifier(a,b,t,k)
+	# Compute b
+	
+
+	# Print results.
+	# print("a:\n",a)
+	print("s_v, support vectors:\n",s_v)
+	# print("b:\n",b)
+
+	toReturn = Classifier(s_v,b,t,k)
 
 	return toReturn
 
-def classify(svm,X_test):
+def classify(svm,inputs):
 
 	# Method announcement.
 	print("Classifying ...")
