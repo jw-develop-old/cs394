@@ -10,9 +10,9 @@ def make_poly_kernel(s) :
 def rbf(x1, x2) :
     return sklrbf([x1], [x2])[0][0]
 
-x1 = [1.0, 35.7, 47.3]
-x2 = [9.7, 20.8, 37.7]
-poly = make_poly_kernel(3)
+# x1 = [1.0, 35.7, 47.3]
+# x2 = [9.7, 20.8, 37.7]
+# poly = make_poly_kernel(3)
 
 # print(linear(x1, x2))
 # print(poly(x1, x2))
