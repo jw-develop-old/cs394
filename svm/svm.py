@@ -58,7 +58,7 @@ def train(data,t,k,C=None):
 	q = matrix(-1,(dim,1),'d')
 
 	# Assemble A matrix of ti along diagonal
-	A = [t[i] for i in range(dim)]
+	A = np.array([t[i] for i in range(dim)])
 	A = matrix(A,(1,dim),'d')
 
 	# Assemble G matrix of -1s along diagonal.
@@ -87,12 +87,15 @@ def train(data,t,k,C=None):
 	l_m = np.array(a['x'])
 
 	# Select support vectors from a that are not zero.
-	s_v = [x for x in a['x'] if x > 1e-5]
+	s_v = np.array([x for x in a['x'] if x > 1e-5])
 
 	# Compute b
-	b = sum([Y[j][0] - sum([l_m[i] * t[i][0] * linear(data[i],data[j])
-                          for i in s_v])
-           for j in s_v]) / len(s_v)
+
+	sum_1 = sum([l_m[i] * t[i] * linear(data[i],data[j]) for i in s_v])
+	
+	sum([t[j] - for j in s_v]) / len(s_v)
+
+	b = 
 
 	# Print results.
 	# print("a:\n",a)
