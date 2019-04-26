@@ -8,7 +8,6 @@ import numpy as np
 from cvxopt import matrix,solvers
 import kernel
 from termcolor import colored
-import sys
 
 class Classifier:
 
@@ -47,7 +46,16 @@ class Classifier:
 		else:
 			return toReturn
 
-def train(data,t,k,C=None,threshold=1e-5,):
+def train(data,t,k,C=None):
+
+	# Method announcement.
+	print("\nTraining ...")
+
+	print("Data -- Targets:")
+	for a,b in zip(data,t):
+		print (a," -- ",b)
+	print("Shapes (tr/test):",data.shape," / ",t.shape)
+
 	dim = len(data)
 	dims = (dim,dim)
 
@@ -81,26 +89,27 @@ def train(data,t,k,C=None,threshold=1e-5,):
 	# Dummy zeroes for b.
 	b = matrix(0.0)
 
+	print("k_matr:\n",k_matr)
+	print("P:\n",P)
+	print("q:\n",q)
+	print("A:\n",A)
+	print("G:\n",G)
+	print("h:\n")
+	for x in h:
+		print(x,end=' ')
+	print('\n')
+
 	# Compute a vector by feeding P,q,G,h,A, and b=0 into QP solver.
 	# Format: sol = solvers.qp(P,q,G,h,A,b)
-	solvers.options['show_progress'] = False
 	a = solvers.qp(P,q,G,h,A,b)
 
 	# LaGrange Multipliers
 	l_m = np.array(a['x'])
 
-	# Find indices of support vector indices from a that are not zero.
-	s_v = []
-	while threshold > 1e-15:
-		s_v = np.where(l_m > threshold)[0]
-		if len(s_v) > 1:
-			break
-		threshold /= 10
+	tHold = 1e-5
 
-	if len(s_v) == 0:
-		print(colored("No support vectors found. Fatal error.",'red'))
-		sys.exit(1)
-	print(len(s_v)," support vectors found at threshold of ",threshold)
+	# Find indices of support vector indices from a that are not zero.
+	s_v = np.where(l_m > tHold)[0]
 
 	# Compute b
 	outer = 0
@@ -109,9 +118,21 @@ def train(data,t,k,C=None,threshold=1e-5,):
 		outer += t[j][0] - inner
 	b = outer/len(s_v)
 
+	# Print results.
+	print("l_m:")
+	for l in l_m:
+		if l > tHold:
+			print("{:.4f}".format(l[0]),end=' ')
+
+	print("\ns_v, support vectors:\n",s_v)
+	print("b:\n",b)
+
 	toReturn = Classifier(s_v,l_m,b,t,k,data)
 
 	return toReturn
 
 def classify(svm,inputs,return_sums=False):
+
+	# Method announcement.
+	print("Classifying ...")
 	return svm.predict(inputs,return_sums)

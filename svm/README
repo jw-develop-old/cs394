@@ -1,4 +1,13 @@
 James White
 Machine Learning 4.22.19
 
-	
+	The file test_svm.py accepts the following command line arguments:
+
+		info - Adds print statements through info_svm.py. I'd recommend using it with 1 or 2 for readability.
+		1 - First test, easily linearly seperable with two svms.
+		2 - Similar test, but gets 3 svms.
+		3 - XOR, demonstrates model failure.
+		wine - Uses wine dataset for classification, with '2' values removed.
+		[default] - uses iris dataset for classification.
+
+	One observation is that kernel.linear performs poorly for the larger datasets. After some testing, I 
