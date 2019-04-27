@@ -8,6 +8,7 @@ import numpy as np
 from cvxopt import matrix,solvers
 import kernel
 from termcolor import colored
+import sys
 
 class Classifier:
 
@@ -110,6 +111,9 @@ def train(data,t,k,C=None):
 
 	# Find indices of support vector indices from a that are not zero.
 	s_v = np.where(l_m > tHold)[0]
+
+	if len(s_v) == 0:
+		sys.exit(1)
 
 	# Compute b
 	outer = 0

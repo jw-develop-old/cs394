@@ -32,7 +32,7 @@ def mainTest(X_train, X_test, y_train, y_test,k):
 	sums = info[1]
 
 	# Display sums computed for each value before comparing using step function.
-	print("Sums: Blue -1 | Green 1 | Red Wrong ")
+	print("\nSums: Blue -1 | Green 1 | Red Wrong ")
 	for j in range(len(sums)):
 		sum = sums[j]
 		if sum > 0 and y_test[j] == 1:
@@ -91,7 +91,7 @@ def advTest(data,n,k):
 	mainTest(X_train, X_test, y_train, y_test,k)
 
 def wineTest():
-	advTest(load_wine(),130,kernel.make_poly_kernel(3))
+	advTest(load_wine(),130,kernel.linear)
 
 def irisTest():
 	advTest(load_iris(),100,kernel.make_poly_kernel(3))

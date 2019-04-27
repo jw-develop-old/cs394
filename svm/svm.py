@@ -47,7 +47,7 @@ class Classifier:
 		else:
 			return toReturn
 
-def train(data,t,k,C=None,threshold=1e-5,):
+def train(data,t,k,C=None,threshold=1e-5):
 	dim = len(data)
 	dims = (dim,dim)
 
@@ -91,16 +91,15 @@ def train(data,t,k,C=None,threshold=1e-5,):
 
 	# Find indices of support vector indices from a that are not zero.
 	s_v = []
-	while threshold > 1e-15:
-		s_v = np.where(l_m > threshold)[0]
-		if len(s_v) > 1:
-			break
-		threshold /= 10
+	# while threshold > 1e-15:
+	s_v = np.where(l_m > threshold)[0]
+		# if len(s_v) > 1:
+			# break
+		# threshold /= 10
 
 	if len(s_v) == 0:
-		print(colored("No support vectors found. Fatal error.",'red'))
-		sys.exit(1)
-	print(len(s_v)," support vectors found at threshold of ",threshold)
+		return None
+	print(colored(len(s_v),"yellow"),end=" ")
 
 	# Compute b
 	outer = 0
@@ -114,4 +113,6 @@ def train(data,t,k,C=None,threshold=1e-5,):
 	return toReturn
 
 def classify(svm,inputs,return_sums=False):
+	if svm==None:
+		return [[0],[0]]
 	return svm.predict(inputs,return_sums)
